@@ -1,0 +1,17 @@
+{
+  "name": "@jasonjin_t/hello-sdk",
+  "version": "0.1.0",
+  "description": "Hello World SDK",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "repository": { "type": "git", "url": "https://github.com/jinxi97/tinkler-ts-sdk.git" },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["sdk", "hello world", "typescript"],
+  "author": "Jason Jin",
+  "license": "MIT"
+}

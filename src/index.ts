@@ -1,3 +1,5 @@
+import type { Message } from "protobufjs";
+
 export interface TinklerOptions {
   apiKey?: string;                 // optional override
   baseURL?: string;                 // optional override
@@ -59,5 +61,10 @@ export class Tinkler {
 
     // assume the endpoint returns a raw boolean
     return (await res.json()) as boolean;
+  }
+
+  async push_record(schemaId: string, record: Message) {
+    console.log(schemaId);
+    console.log(record.toJSON());
   }
 }

@@ -1,0 +1,8 @@
+syntax = "proto3";
+package ai.tinkler.sdk;
+
+message SampleRecord {
+  int32 my_field1 = 1;
+  double my_field2 = 2;
+  string my_field3 = 3;
+}

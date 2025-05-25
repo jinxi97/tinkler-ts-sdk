@@ -1,4 +1,4 @@
-import type { Message } from "protobufjs";
+import { MessageFns } from "./generated/src/protos/sample_record";
 
 export interface TinklerOptions {
   apiKey?: string;                 // optional override
@@ -63,8 +63,32 @@ export class Tinkler {
     return (await res.json()) as boolean;
   }
 
-  async push_record(schemaId: string, record: Message) {
-    console.log(schemaId);
-    console.log(record.toJSON());
+  async push_record<T>(schemaId: string, record: T, codec: MessageFns<T>): Promise<boolean> {
+    const url =
+      this.baseURL.replace(/\/$/, "") + "/push_record";
+
+    const request_body = JSON.stringify({
+      schema_id: schemaId,
+      record: codec.encode(record).finish(),
+    });
+
+    console.log(request_body);
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: request_body,
+    });
+
+    if (!res.ok) {
+      throw new Error(
+        `Tinkler.push_record failed: ${res.status} ${res.statusText}`
+      );
+    }
+
+    return (await res.json()) as boolean;
   }
 }

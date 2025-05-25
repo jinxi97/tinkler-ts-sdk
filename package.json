@@ -1,6 +1,6 @@
 {
   "name": "@tinkler-experimental/tinkler-sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Hello World SDK",
   "type": "module",
   "main": "./dist/index.js",

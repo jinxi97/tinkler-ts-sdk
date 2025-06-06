@@ -63,13 +63,15 @@ export class Tinkler {
     return (await res.json()) as boolean;
   }
 
-  async push_record<T>(schemaId: string, record: T, codec: MessageFns<T>): Promise<boolean> {
+  async push_record<T>(schemaName: string, record: T, codec: MessageFns<T>): Promise<boolean> {
     const url =
-      this.baseURL.replace(/\/$/, "") + "/push_record";
+      this.baseURL.replace(/\/$/, "") + "/produce_record";
 
+    const encoded_record = codec.encode(record).finish();
+    const base64_record = Buffer.from(encoded_record).toString("base64");
     const request_body = JSON.stringify({
-      schema_id: schemaId,
-      record: codec.encode(record).finish(),
+      schema_name: schemaName,
+      record: base64_record,
     });
 
     console.log(request_body);
